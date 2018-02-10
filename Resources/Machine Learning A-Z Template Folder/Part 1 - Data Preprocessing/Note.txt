@@ -1,0 +1,22 @@
+Part 1 - Data Preprocessing
+  + Trong pre-processing data có 2 loại biến
+    - In-dependent variables: thường dùng để dự đoán giá trị của các Dependent variables
+    - Dependent variables: phụ thuộc vào giá trị của các biến khác
+    - Với các in-dependent variables machine learning model có thể sắp xếp giá trị của chúng
+    - Với các dependent variables thì machine learning model không sắp xếp giá trị của chúng
+  + iloc[số lượng dòng, số lượng cột] - : là lấy hết
+  + Lấy ra cột cuối cùng - cần chỉ ra chỉ số
+  + Dummy encoding
+    - one-hot encoding: Ta sẽ có các dummy variables, chúng không cần phải "Feature scaling"
+  + Feature scaling
+    - Khi các giá trị của các thuộc tính trong model chênh nhau quá nhiều -> ảnh hưởng lớn đến kết quả
+      dự đoán -> kết quả sẽ phụ thuộc vào cặp lệch nhau quá nhiều
+    - VD: Khi tính khoảng cách euclid giữa 2 điểm, độ lệch (y1, y2) so với (x1, x2) quá lớn
+      chắc chắn sẽ ảnh hưởng đến giá trị của khoảng cách giữa 2 điểm (x1, y1) vs (x2, y2)
+    - Feature scaling là kĩ thuật đưa các giá trị của các thuộc tính về những khoảng
+      giá trị giống nhau
+    - Standardisation
+      * x(stand) = (x - mean(X)) / (standard deviation(x))
+    - Normasilation
+      * x(norm) = (x - min(x)) / (max(x) - min(x))
+    - Standardisation & Normasilation là 2 cách Feature scaling

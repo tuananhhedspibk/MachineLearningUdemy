@@ -1,0 +1,20 @@
+Logistic Regression
+  + Xét ví dụ
+    - Xác suất mua hàng dựa theo tuổi
+      * Với những người trẻ (< 35) -> x/s = 0
+      * Với những người có tuổi (> 50) -> x/s = 1
+      * Với những người ở độ tuổi giữa khoảng [35, 50] thì
+        x/s mua hàng của họ thuộc [0, 1] - nghĩa là có thể
+        là 50%, 60%, 80%, ...
+      * Hàm có dạng
+        - 2 đầu là 2 đường thẳng, đoạn ở giữa sẽ là 1 đường chéo
+        - VD: signmoid function: p = 1 / (1 + e^-y)
+      * Logistic Regression ta thường xét theo xác suất
+        - Ta có thể tìm xác suất để đầu ra y = a
+      * ln (p / (1 - p)) = b0 + b1*x1
+  + random_state: sẽ gen 1 cách ngẫu nhiên dữ liệu nếu thiếu
+    - random_state = 0, gen 0 khi thiếu data
+    - Khi vẽ đồ thị của Logistic Regression
+      * Có các đường gọi là prediction boundnary: nó sẽ là đường
+        phân cách các tập hợp / cụm với xác suất (p) khác nhau
+      * Đường này là thẳng khi Logistic Regression là Linear

@@ -1,0 +1,145 @@
+Simple Linear Regression
+  + Example: y = b0 + b1 * x1
+    - y: biến phụ thuộc - Dependent Variable (DV)
+    - x1: biến độc lập: Independent Variable (IV)
+    - y^ là giá trị dự đoán được, y là giá trị thực
+      => Ta cần tìm 1 model sao cho: SUM (y - y^)^2 là min
+  + Trong python:
+    - X là matrix thì size (a, b)
+    - Y là vector thì size (a,)
+
+Multiple Linear Regression
+  + y = b0 + b1 * x1 + b2 * x2 + ... + bn * xn
+  + Các giả thiết về Linear Regression
+    - Tính tuyến tính
+    - Tính tương đồng
+    - Đa biến
+    - Các lỗi độc lập
+    - Thiếu đa dạng
+  + Trước khi build 1 Linear Regression model ta cần đảm bảo rằng tất cả tiêu chí trên đều
+    đúng
+  + Dummy Variables
+    - Cách tạo
+      * Tìm các category dựa theo dữ liệu mẫu
+      * Giả sử có 2 features: fea_1, fea_2 -> Dummy Variables
+      * Ta sẽ tạo ra 2 cột fea_1, fea_2 tương ứng (2 cột mới)
+      * Các giá trị tương ứng ở 2 cột sẽ là: 1 0, 0 1, 0 0, ...
+        + Tương đương với dữ liệu mẫu, category
+      * Ta chỉ sử dụng 1 trong số Dummy Variables mà thôi
+    - y = b0 + b1 * x1 + ... + b4 * D1
+  + Dummy Variables Trap
+    - Nếu ta include toàn bộ Dummy Variables do tổng của chúng có thể là 1 hằng số
+      nên có thể suy ra giữa các biến với nhau.
+      VD: D1 + D2 = 1, b4 * D1 + b5 * D2 = (b4 - b5) * D1 + b5
+    - Nếu ta có x categories, chỉ nên include (x - 1) Dummy Variables
+  + Building a model - Step by step
+    - Loại bỏ các features không quan trọng
+    - 5 bước build model
+      (1) All-in
+      (2) Backward elimination
+        - Chọn ra 1 ngưỡng SL cho model (SL = 0.05)
+        - Fit full model với mọi features
+        - Chọn ra các Independent Variables có ý nghĩa quan trọng cho việc dự đoán
+        - Xem xét các features mà có P > SL, loại nó ra, rồi fit tiếp model mà ko
+          có features đó
+          * Nếu P < SL -> mô hình đã hoàn chỉnh
+        * Ở đây ta phải thêm features X0 = [1, 1, ...]
+      (3) Forward selection
+      (4) Bidirectional elimination
+      (4) Score Comparison
+    - (2), (3), (4): hồi quy từng bước
+
+Polynomial Linear Regression
+  + y = b0 + b1 * x1 + b2 * x1^2 + ... + bn * x1^n
+  + Linear liên quan đến b0, b1, ..., bn
+    - Nếu là x1/b1 thì sẽ là non-linear
+
+SVR
+  + SVR(kernel)
+    - kernel: quyết định xem SVR là linear, Polynomial
+    - Chỉ có thể bao quát được các điểm gần nhau, với các điểm ở quá xa thì
+      dự đoán là không chính xác
+    - [[]]: matrix, []: vector
+    - SVR lib ko có features scaling
+
+Decision Tree Regression
+  + Gồm 2 loại: Classification Tree và Regression Tree
+  + Ý tưởng: ta sẽ thêm các thông tin khác để phân nhóm/ cụm cho các điểm dữ liệu
+    - Tuy nhiên cần lựa chọn số lượng các thông tin thêm sao cho nhỏ nhất có thể
+    - Các điểm dữ liệu sẽ được phân xuống các lá
+    - Tại mỗi nút của cây quyết định sẽ là các điều kiện
+    - Các cạnh nối các nút của cây sẽ là giá trị True/ False tương ứng với điều kiện
+      tại nút của các điểm dữ liệu
+    - Giả sử ta có x1, x2 là các Independent Variables
+      * y là Dependent Variable
+      * Với 1 điểm dữ liệu mới, dựa theo x1, x2 ta sẽ phân nó vào các vùng đã được chia
+      * Giá trị y của các điểm dữ liệu trong 1 cụm sẽ là giá trị trung bình của y trong cụm đó
+  + Giải thuật loại này sẽ phân chia các điểm dữ liệu vào các cụm/ khoảng
+    - Nếu chỉ có 1 Independent Variable thì sẽ là 1 khoảng giá trị [a, b]
+      * Do y ở mỗi khoảng đều bằng nhau và bằng giá trị y trung bình trong khoảng đó
+      * Nên đồ thị sẽ là 1 đường thẳng nằm ngang
+      * Các đường này sẽ không cắt nhau, song song nhau
+      * Nếu Independent Variable cách nhau 1 khoảng 1 đ/v thì các đường y_prediction
+        sẽ chập vào nhau -> sẽ ko có y_prediction chính xác
+      * Non-continous model
+      * Các model: Linear, non-linear đều là continous
+    - Ta cần vẽ đồ thị ở độ phân giải lớn hơn
+      * Đồ thị có dạng bậc thang
+
+Radom Forest Regression
+  + Ensemble Learning
+    - Dùng nhiều giải thuật học cùng 1 lúc, hoặc dùng 1 giải thuật học nhiều lần
+  + Các bước
+    - B1: Lấy ra ngẫu nhiên K data points từ Training set
+    - B2: Xây 1 Decision Tree (DT) tương ứng với K data points này
+    - B3: Chọn ra 1 số lượng Tree - NTree ta muốn build rồi lặp lại B1, B2
+    - B4: Với điểm dữ liệu mới, đưa vào các cây để lấy ra giá trị y của nó,
+      gán giá trị y trung bình từ các y lấy được kia cho điểm dữ liệu mới này
+  + Số lượng bậc thang trong 1 khoảng giá trị sẽ nhiều hơn so với DT algorithm
+  + Đường nằm ngang trong bậc thang sẽ là giá trị của y
+    - Đường nằm dọc là để phân cách các khoảng với nhau
+  + Do giải thuật này ta chỉ lấy giá trị trung bình nên khi tăng số trees,
+    có thể số bậc thang sẽ không tăng nhưng các bậc thang sẽ có giá trị chính xác hơn
+
+R Squared
+  + Simple Linear Regression
+    - SUM (yi - yi^)^2 -> min
+      * yi: giá trị thực tế
+      * yi^: giá trị dự đoán được
+    - SS(res) = SUM (yi - yi^)^2: Sum of Squared
+    - Nếu ta xét y(avg): là giá trị trung bình của y -> đường trung bình
+      * Xét SUM (yi - y(avg))^2 = SS(tot) (Total Sum of Squared)
+  + R^2 = 1 - SS(res) / SS(tot): đánh giá mức độ fit của model
+  + Khi ta muốn tối thiểu hóa SS(res) có nghĩa là ta muốn tìm ra đường thẳng tuyến tính
+    tốt nhất cho model -> R^2: so sánh sự khác biệt giữa đường trung bình và đường thẳng
+    tuyến tính ta tìm được -> SS(res) min -> R^2 tăng
+
+Adjusted R Squared
+  + Xét y = b0 + b1 * x1, y = b0 + b1 * x1 + b2 * x2
+    - SS(res) -> min
+  + Vấn đề: khi thêm biến vào model, R^2 không bao giờ giảm
+    - Khi thêm biến mới vào model, SS(res) giảm
+  + Adj R^2 = 1 - (1 - R^2) * (n - 1) / (n - p - 1)
+    - p: số lượng regressor - Independent Variables
+    - n: kích thước tập dữ liệu mẫu
+    => Khi thêm Independent Variables (features), Adj R^2 sẽ không tăng nhiều
+  + Tương tự R Squared, nó cũng sẽ tăng khi có thêm biến vào model,
+    tuy nhiên cũng có TH Adj R Squared giảm 1 lượng nhỏ khi ta thêm biến
+      - Có hiệu ứng 2 chiều: có thể tăng, giảm khi thêm biến
+      - Khi R Squared không tăng quá nhiều thì lượng giảm của Adj R Squared
+        sẽ áp đảo nó -> Adj R Squared cũng sẽ dùng để xem xét mức độ
+        tốt của model (good fit)
+      - Khi Adj R Squared tăng thì model cũng sẽ tốt hơn
+
+Đánh giá hiệu năng của mô hình hồi quy
+  + Khi thực hiện Backward elimination ta cũng nên xem xét đến
+    các giá trị R Squared, Adj R Squared để đánh giá chính xác việc
+    thêm, bỏ bớt biến ở model
+  + Trong bảng Backward elimination thu được
+    - Estimate: là các hệ số b0, b1, ...
+      * Nếu > 0 thì Dependent Variable sẽ tỉ lệ thuận với Independent Variable
+        và ngược lại
+      * Độ lớn của các giá trị Estimate này không thể hiện mức độ quan trọng, ảnh hưởng
+        của features tương ứng tới model
+      * Độ lớn của Estimate sẽ là: tương ứng với 1 đ/v của features, Dependent Variable sẽ
+        tăng/ giảm 1 lượng đúng bằng độ lớn của Estimate

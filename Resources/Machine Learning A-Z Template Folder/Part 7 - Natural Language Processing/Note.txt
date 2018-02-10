@@ -1,0 +1,2 @@
++ Stemming là việc lấy ra từ gốc của 1 từ (VD: loved -> love)
+  - Điều này giúp tránh việc sparse matrix có kích cỡ quá lớn
