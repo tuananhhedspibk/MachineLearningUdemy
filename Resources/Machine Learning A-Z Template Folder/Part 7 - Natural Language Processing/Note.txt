@@ -1,2 +1,7 @@
 + Stemming là việc lấy ra từ gốc của 1 từ (VD: loved -> love)
   - Điều này giúp tránh việc sparse matrix có kích cỡ quá lớn
+  - sparse matrix: là các ma trận có số lượng phần tử 0 chiếm đa số (ma trận thưa thớt)
+  - fit_transform: fit() -> transform()
+    * fit(): tính parameters, lưu chúng trong các internal objects state
+    * transform(): apply sự thay đổi vào tập dữ liệu
+  - confusion matrix C: là ma trận gồm số lượng Cij - phần tử thuộc về group i nhưng lại dự đoán là group j
