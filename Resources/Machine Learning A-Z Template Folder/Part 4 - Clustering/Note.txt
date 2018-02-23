@@ -1,0 +1,40 @@
+K-means
+  + Là công cụ dùng trong phân loại - phân cụm văn bản, data khi chưa biết gì về đầu ra, category
+  + Implement step by step
+    - B1: Chọn ra số K - số lượng các clusters
+    - B2: Chọn ngẫu nhiên ra K điểm centroid (tâm của các clusters) lúc ban đầu
+      (các centroids này có thể là các điểm bất kì - ko thuộc dataset cũng được)
+    - B3: Gán các điểm dữ liệu vào cluster của centroid gần nhất
+    - B4: Tính toán lại các centroids của các clusters
+    - B5: Gán lại các điểm vào các clusters của centroids gần nhất, nếu thực hiện được thì
+      tiếp tục B4, còn không thì kết thúc giải thuật (FIN)
+  + WCSS = ∑ (cluster i) [ ∑ (Pj in cluster i) distance(Pj, Ci)^2 ]
+    - Khi càng nhiều clusters thì giá trị của WCSS sẽ giảm dần
+    - Do distance giữa các Pj và Ci ngày càng giảm (Pj gần Ci hơn)
+    - Nếu ta coi 1 điểm là 1 cluster thì WCSS = 0
+    - Nếu visualize thì điểm biểu thị số lượng cluster là điểm giao mà giá trị
+      WCSS giảm không đáng kể (độ dốc nhỏ) - Elbow method
+
+Hierarchical Clustering (HC)
+  + Agglomerative & Divise (Hội tụ và phân chia)
+  + Agglomerative:
+    - B1: Giả sử 1 data point = 1 cluster ==> Forms N clusters
+    - B2: Chọn ra 2 data points gần nhau nhất và gộp chúng thành 1 cluster => Forms (N - 1) clusters
+    - B3: Chọn ra 2 clusters gần nhau nhất và gộp chúng thành 1 cluster => Forms (N - 2) clusters
+    - B4: Lặp lại B3 cho đến khi chỉ còn 1 cluster duy nhất
+  + Distances between clusters
+    - option1: Tính khoảng cách giữa 2 điểm gần nhất của các clusters
+    - option2: Tính khoảng cách giữa 2 điểm xa nhất của các clusters
+    - option3: Tính khoảng cách trung bình
+    - option4: Tính khoảng cách giữa các centroid
+  + Dendogram work
+    - Là công cụ giúp ghi nhớ quá trình hình thành cụm, gộp cụm trong HC
+    - Ta có thể đưa ra 1 threshold, nếu khoảng cách giữa các cluster lớn hơn threshold đó thì ta sẽ
+      ko tiến hành gộp cluster
+    - Ý nghĩa của threshold đó là quy ước "mức độ khác biệt" giữa 2 cluster không được vượt quá threshold này
+    - Trong đồ thji Dendogram thì các đường dọc/ thẳng sẽ tương đương với các cluster
+      * Có 1 trục dọc là Euclidean distance, trục ngang sẽ là tập các data point
+    - Tối ưu hóa số clusters
+      * Xem xét các đường thẳng dọc, nếu chúng không cắt đường ngang nào thì ok, và ngược lại
+      * Ngoài ra nên chọn đường nào có distance lớn nhất để đặt threshold
+    - linkage="ward": giảm varience của mỗi cluster

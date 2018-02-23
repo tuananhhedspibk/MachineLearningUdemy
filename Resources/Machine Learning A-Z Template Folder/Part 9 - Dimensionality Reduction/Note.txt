@@ -1,0 +1,20 @@
+Features Extraction
+  + Thường dùng để giảm đi số lượng independent variables -> giảm dimensions -> có thể visualize dữ liệu
+  + PCA: Chọn ra p <= m independent variables từ m variables trong dataset mà nó diễn tả
+    sự biến thiên đáng kể nhất của dataset mà không phụ thuộc vào dependent variables
+    - Các features được extract ra sẽ gọi là "principal component"
+      * Sẽ coi như là các features mới, các independent variables mới
+      * Các independent variables này sẽ mô tả "most variance" của dataset (nó khác với các
+        independent variables cũ)
+    - Phải sử dụng "Features scalling" khi apply PCA, LDA
+    - Áp dụng PCA ngay sau pha "preprocess + features scalling" và trước pha "fitting"
+    - PCA: unsupervised model
+  + LDA: Chọn ra p <= m independent variables từ m variables trong dataset, các independent variables
+    này sẽ là các independent variables mới, nó sẽ giúp phân loại ra 1 số lượng các classes nhiều nhất
+    có thể
+    - LDA: supervised model
+  + PCA, LDA chỉ hoạt động trên Linear Model
+  + Kernel PCA: có thể áp dụng cho non-Linear Model - non-Linear data
+    - Apply "Kernel tricks" để map dữ liệu vào 1 dimensions lớn hơn, apply PCA để bóc ra các "principal component"
+      mới
+      * Khi số dimensions nhiều hơn, mô hình sẽ chuyển dần qua Linear Model -> có thể dễ dàng áp dụng PCA
